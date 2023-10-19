@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 400px;
+            margin: 0 auto;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 1px #888888;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        label {
+            color: #333;
+        }
+        input, button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #a566b0;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #b695c0;
+            color: #070707;
+            cursor: pointer;
+        }
+        #resultado-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de IMC</h1>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso">
+
+        <label for="altura">Altura (m):</label>
+        <input type="number" step="0.01" id="altura">
+
+        <button onclick="calcularIMC()">Calcular IMC</button>
+
+        <div id="resultado-container">
+            <h2>Resultados</h2>
+            <p id="resultado-nombre"></p>
+            <p id="resultado-peso"></p>
+            <p id="resultado-altura"></p>
+            <p id="resultado-imc"></p>
+            <p id="resultado-recomendacion"></p>
+            <p id="resultado-rango"></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularIMC() {
+            var nombre = document.getElementById("nombre").value;
+            var peso = parseFloat(document.getElementById("peso").value);
+            var altura = parseFloat(document.getElementById("altura").value);
+
+            var imc = peso / (altura * altura);
+            var recomendacion = "";
+            var rango = "";
+
+            var resultadoNombre = "Nombre: " + nombre;
+            var resultadoPeso = "Peso: " + peso + " kg";
+            var resultadoAltura = "Altura: " + altura + " m";
+            var resultadoIMC = "IMC: " + imc.toFixed(2);
+        
+
+            if (imc > 25) {
+                rango = "Rango: Peso Alto";
+            } else if (imc >= 22) {
+                rango = "Rango: Peso Correcto";
+            } else {
+                rango = "Rango: Peso Bajo";
+            }
+
+            if (imc > 25) {
+                recomendacion = "Recomendación: Haga dieta y ejercicio";
+            } else if (imc >= 22) {
+                recomendacion = "Recomendación: Siga asi";
+            } else {
+                recomendacion = "Recomendación: Coma más";
+            }
+
+
+            document.getElementById("resultado-nombre").textContent = resultadoNombre;
+            document.getElementById("resultado-peso").textContent = resultadoPeso;
+            document.getElementById("resultado-altura").textContent = resultadoAltura;
+            document.getElementById("resultado-imc").textContent = resultadoIMC;
+            document.getElementById("resultado-recomendacion").textContent = recomendacion;
+            document.getElementById("resultado-rango").textContent = rango;
+
+            document.getElementById("resultado-container").style.display = "block";
+        }
+    </script>
+</body>
+</html>
