@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Generador de RFC</title>
+</head>
+<body>
+    <h1>Generador de RFC</h1>
+    <form id="rfcForm">
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br>
+
+        <label for="apellidoPaterno">Apellido Paterno:</label>
+        <input type="text" id="apellidoPaterno" required><br>
+
+        <label for="apellidoMaterno">Apellido Materno:</label>
+        <input type="text" id="apellidoMaterno" required><br>
+
+        <label for="añoNacimiento">Año de Nacimiento:</label>
+        <input type="number" id="añoNacimiento" required><br>
+
+        <label for="mesNacimiento">Mes de Nacimiento (MM):</label>
+        <input type="text" id="mesNacimiento" required><br>
+
+        <label for="diaNacimiento">Día de Nacimiento (DD):</label>
+        <input type="text" id="diaNacimiento" required><br>
+
+        <button type="button" onclick="generarRFC()">Generar RFC</button><br>
+
+        <p id="rfcResultado"></p>
+    </form>
+
+    <script>
+        function obtenerSegundaLetra(apellido) {
+            if (apellido.length >= 2) {
+                return apellido.charAt(1).toUpperCase();
+            } else {
+                return '';
+            }
+        }
+
+        function generarRFC() {
+            const nombre = document.getElementById('nombre').value;
+            const apellidoPaterno = document.getElementById('apellidoPaterno').value;
+            const apellidoMaterno = document.getElementById('apellidoMaterno').value;
+            const añoNacimiento = document.getElementById('añoNacimiento').value;
+            const mesNacimiento = document.getElementById('mesNacimiento').value;
+            const diaNacimiento = document.getElementById('diaNacimiento').value;
+
+            const primeraLetraPaterno = apellidoPaterno.charAt(0).toUpperCase();
+            const segundaLetraPaterno = obtenerSegundaLetra(apellidoPaterno);
+            const primeraLetraMaterno = apellidoMaterno.charAt(0).toUpperCase();
+            const ultimasDosCifrasAño = añoNacimiento.slice(-2);
+            const mesFormateado = mesNacimiento.padStart(2, '0');
+            const diaFormateado = diaNacimiento.padStart(2, '0');
+
+            const rfc = primeraLetraPaterno + segundaLetraPaterno + primeraLetraMaterno + nombre.slice(0, 1) + ultimasDosCifrasAño + mesFormateado + diaFormateado;
+
+            document.getElementById('rfcResultado').textContent = 'Tu RFC es: ' + rfc;
+        }
+    </script>
+</body>
+</html>
